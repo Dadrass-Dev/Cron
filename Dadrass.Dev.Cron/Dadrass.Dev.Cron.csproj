@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>Dadrass.Dev.Cron</PackageId>
+        <Title>Dadrass.Dev Cron Job</Title>
+        <Authors>Alireza Dadrass</Authors>
+        <Description>A very simple cron job for .net</Description>
+    </PropertyGroup>
+
+</Project>
