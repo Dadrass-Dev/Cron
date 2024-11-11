@@ -127,12 +127,6 @@ Utility class for functional transformations.
 
 ---
 
-## Example Project
-
-Refer to the `Examples` folder for a comprehensive example on using the `Dadrass.Dev.Cron` library with various patterns and advanced event handling.
-
----
-
 ## Contributing
 
 We welcome contributions! Please submit issues and pull requests to improve the library.
