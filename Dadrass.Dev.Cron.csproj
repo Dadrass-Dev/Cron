@@ -7,7 +7,7 @@
         <PackageId>Dadrass.Dev.Cron</PackageId>
         <Title>Dadrass.Dev Cron Job</Title>
         <Authors>Alireza Dadrass</Authors>
-        <Description>A very simple cron job for .net</Description>
+        <Description>A .NET library that provides a flexible cron job scheduling system, allowing jobs to run on specified patterns. This package includes utility classes to define complex timing patterns and execute tasks at intervals specified by the user.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/Dadrass-Dev/Cron.git</PackageProjectUrl>
