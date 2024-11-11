@@ -8,6 +8,17 @@
         <Title>Dadrass.Dev Cron Job</Title>
         <Authors>Alireza Dadrass</Authors>
         <Description>A very simple cron job for .net</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Copyright>MIT</Copyright>
+        <PackageProjectUrl>https://github.com/Dadrass-Dev/Cron.git</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Dadrass-Dev/Cron.git</RepositoryUrl>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseUrl>https://github.com/Dadrass-Dev/Cron?tab=MIT-1-ov-file</PackageLicenseUrl>
     </PropertyGroup>
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
 </Project>
