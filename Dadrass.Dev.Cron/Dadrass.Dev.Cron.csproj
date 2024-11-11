@@ -12,10 +12,11 @@
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/Dadrass-Dev/Cron.git</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Dadrass-Dev/Cron.git</RepositoryUrl>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <AssemblyVersion>1.0.1</AssemblyVersion>
+        <FileVersion>1.0.1</FileVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicenseUrl>https://github.com/Dadrass-Dev/Cron?tab=MIT-1-ov-file</PackageLicenseUrl>
+        <PackageLicense>https://github.com/Dadrass-Dev/Cron?tab=MIT-1-ov-file</PackageLicense>
+        <Version>1.0.1</Version>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\"/>

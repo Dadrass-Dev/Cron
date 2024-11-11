@@ -2,7 +2,7 @@ namespace Dadrass.Dev.Cron.Models;
 
 using Utilities;
 
-public class TimePattern(int baseWait, int millisecond, int second, int minute, int hour, int day) {
+class TimePattern(int baseWait, int millisecond, int second, int minute, int hour, int day) {
     public int BaseWait { get; } = baseWait;
     public int Millisecond { get; set; } = millisecond;
     public int Second { get; set; } = second;
@@ -22,7 +22,7 @@ public class TimePattern(int baseWait, int millisecond, int second, int minute, 
             .ToArray()
             ._(parts => {
                 var sum = parts[0] + parts[1] * 1000 + parts[2] * 1000 * 60 + parts[3] * 1000 * 60 * 60 + parts[4] * 1000 * 60 * 60 * 24;
-                
+
                 var baseWait = DateTime.Now.Subtract(DateTime.Parse(split[0]))
                     ._(difference => difference.TotalMilliseconds)
                     ._(millisecondsDifference => millisecondsDifference % sum)
