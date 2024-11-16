@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -28,11 +27,8 @@
       <DocumentationFile>bin\Release\net8.0\Dadrass.Dev.Cron.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath=""/>
-        <None Include="LICENSE" Pack="true" PackagePath=""/>
-        <None Update="icon.png">
-          <Pack>True</Pack>
-          <PackagePath></PackagePath>
-        </None>
+        <None Include="../README.md" Pack="true" PackagePath=""/>
+        <None Include="../LICENSE" Pack="true" PackagePath=""/>
+        <None Update="../icon.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 </Project>

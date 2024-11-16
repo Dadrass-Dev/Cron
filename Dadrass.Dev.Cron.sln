@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dadrass.Dev.Cron", "Dadrass.Dev.Cron.csproj", "{67BCFC9A-DF29-425F-BAC6-CC10EC8C3648}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dadrass.Dev.Cron", "./Dadrass.Dev.Cron/Dadrass.Dev.Cron.csproj", "{67BCFC9A-DF29-425F-BAC6-CC10EC8C3648}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
