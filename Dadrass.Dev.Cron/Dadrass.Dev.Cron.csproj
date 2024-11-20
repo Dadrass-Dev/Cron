@@ -11,11 +11,11 @@
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/Dadrass-Dev/Cron.git</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Dadrass-Dev/Cron.git</RepositoryUrl>
-        <AssemblyVersion>2.1.1</AssemblyVersion>
-        <FileVersion>2.1.1</FileVersion>
+        <AssemblyVersion>2.2.1</AssemblyVersion>
+        <FileVersion>2.2.1</FileVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicense>https://github.com/Dadrass-Dev/Cron?tab=MIT-1-ov-file</PackageLicense>
-        <Version>2.1.1</Version>
+        <Version>2.2.1</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageIcon>icon.png</PackageIcon>
         <RepositoryType>Public</RepositoryType>
@@ -30,5 +30,8 @@
         <None Include="../README.md" Pack="true" PackagePath=""/>
         <None Include="../LICENSE" Pack="true" PackagePath=""/>
         <None Update="../icon.png" Pack="true" PackagePath=""/>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Dadrass.Dev.Expression" Version="1.0.0" />
     </ItemGroup>
 </Project>

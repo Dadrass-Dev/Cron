@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Events;
 using Models;
+using Dadrass.Dev.Expression;
+using Expression.Core.Utilities;
 
 /// <summary>
 /// Represents a customizable cron job that runs tasks on a specified pattern-based schedule.
@@ -24,6 +26,11 @@ public sealed class CronJob {
     readonly CancellationTokenSource _cancellationTokenSource = new();
 
     /// <summary>
+    /// Function registry for custom functions in expression
+    /// </summary>
+    public readonly Dictionary<string, Func<object?[]?, object>> CustomFunctionRegistry = [];
+
+    /// <summary>
     /// Gets or sets the current tick sequence number.
     /// </summary>
     /// <remarks>
@@ -38,15 +45,30 @@ public sealed class CronJob {
     /// <param name="pattern">
     /// A string representing the cron schedule pattern.
     /// </param>
-    public CronJob(string pattern)
+    /// <param name="expression">
+    /// An expression to maximize flexibility of cron ticks conditions
+    /// </param>
+    /// <param name="datasource">
+    /// Data source of provided params in the Expression
+    /// </param>
+    public CronJob(string pattern, string expression = "true==true", Dictionary<string, object>? datasource = null)
     {
+        Datasource = datasource;
+        ExpressionString = expression;
         Pattern = TimePattern.TryParse(pattern);
+        foreach (var keyValuePair in CustomFunctionRegistry)
+        {
+            ExpressionUtilities.CustomFunctionRegistry.TryAdd(keyValuePair.Key, keyValuePair.Value);
+        }
     }
 
     /// <summary>
     /// Gets the parsed time pattern based on the provided pattern string.
     /// </summary>
     TimePattern Pattern { get; }
+
+    string ExpressionString { get; }
+    Dictionary<string, object>? Datasource { get; }
 
     /// <summary>
     /// Occurs each time the interval defined in the pattern elapses.
@@ -81,28 +103,21 @@ public sealed class CronJob {
         try
         {
             // Wait until the initial start time defined by the pattern
-            await Task.Delay(Pattern.BaseWait, _cancellationTokenSource.Token);
-            if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+            if (await WaitOrCancelAsync(delay: Pattern.BaseWait)) return;
+            if (Expression.Evaluate<bool>(ExpressionString, Datasource))
+                TriggerTickEvent();
 
             // Run the task in intervals defined by the pattern until stopped
             while (!_cancellationTokenSource.Token.IsCancellationRequested)
             {
-                await Task.Delay(Pattern.Millisecond, _cancellationTokenSource.Token);
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+                if (await WaitOrCancelAsync(delay: Pattern.Millisecond)) return;
+                if (await WaitOrCancelAsync(delay: Pattern.Second * 1000)) return;
+                if (await WaitOrCancelAsync(delay: Pattern.Minute * 1000 * 60)) return;
+                if (await WaitOrCancelAsync(delay: Pattern.Hour * 1000 * 60 * 60)) return;
+                if (await WaitOrCancelAsync(delay: Pattern.Day * 1000 * 60 * 60 * 24)) return;
 
-                await Task.Delay(Pattern.Second * 1000, _cancellationTokenSource.Token);
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                await Task.Delay(Pattern.Minute * 1000 * 60, _cancellationTokenSource.Token);
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                await Task.Delay(Pattern.Hour * 1000 * 60 * 60, _cancellationTokenSource.Token);
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                await Task.Delay(Pattern.Day * 1000 * 60 * 60 * 24, _cancellationTokenSource.Token);
-                if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                TriggerTickEvent();
+                if (Expression.Evaluate<bool>(ExpressionString, Datasource))
+                    TriggerTickEvent();
                 Sequence++;// Increment the sequence count after each tick event
             }
         }
@@ -115,6 +130,12 @@ public sealed class CronJob {
             // Log or handle any unexpected exceptions as needed
             Console.WriteLine($"CronJob error: {ex.Message}");
         }
+    }
+
+    async Task<bool> WaitOrCancelAsync(int delay)
+    {
+        await Task.Delay(delay, _cancellationTokenSource.Token);
+        return _cancellationTokenSource.Token.IsCancellationRequested;
     }
 
     /// <summary>

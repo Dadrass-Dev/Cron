@@ -71,13 +71,24 @@ class TimePattern(int baseWait, int millisecond, int second, int minute, int hou
                 .ToArray()
                 ._(parts => {
                     // Calculate the sum of intervals in milliseconds
-                    var sum = parts[0] + parts[1] * 1000 + parts[2] * 1000 * 60 + parts[3] * 1000 * 60 * 60 + parts[4] * 1000 * 60 * 60 * 24;
+                    // var step = parts[0] + parts[1] * 1000 + parts[2] * 1000 * 60 + parts[3] * 1000 * 60 * 60 + parts[4] * 1000 * 60 * 60 * 24;
+                    var stepDate =
+                        DateTime.Parse(split[0])
+                            .AddMilliseconds(parts[0])
+                            .AddSeconds(parts[1])
+                            .AddMinutes(parts[2])
+                            .AddHours(parts[3])
+                            .AddDays(parts[4]);
 
+                    var step = stepDate.Subtract(DateTime.Parse(split[0])).TotalMilliseconds;
                     // Calculate the base wait time as the remaining time until the next start based on the current time
-                    var baseWait = DateTime.Now.Subtract(DateTime.Parse(split[0]))
-                        ._(difference => difference.TotalMilliseconds)
-                        ._(millisecondsDifference => millisecondsDifference % sum)
-                        ._(remaining => remaining < 0 ? remaining * -1 : remaining);
+                    var baseWait = DateTime.Now.Subtract(stepDate).TotalMilliseconds;
+
+                    if (baseWait < 0) baseWait *= -1;
+                    else
+                        baseWait += step - (step * (baseWait / step - Math.Truncate(baseWait / step)));
+
+                    baseWait = stepDate.AddMilliseconds(baseWait).Subtract(DateTime.Now).TotalMilliseconds;
 
                     return new TimePattern((int)baseWait, parts[0], parts[1], parts[2], parts[3], parts[4]);
                 });
