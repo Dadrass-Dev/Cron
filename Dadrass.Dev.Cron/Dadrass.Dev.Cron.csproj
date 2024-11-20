@@ -24,14 +24,14 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\net8.0\Dadrass.Dev.Cron.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\net8.0\Dadrass.Dev.Cron.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath=""/>
         <None Include="../LICENSE" Pack="true" PackagePath=""/>
-        <None Update="../icon.png" Pack="true" PackagePath=""/>
+        <None Include="../icon.png" Pack="true" PackagePath=""/>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Dadrass.Dev.Expression" Version="1.0.0" />
+        <PackageReference Include="Dadrass.Dev.Expression" Version="1.0.0"/>
     </ItemGroup>
 </Project>
